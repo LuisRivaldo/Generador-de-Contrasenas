@@ -58,7 +58,6 @@ useEffect(() => {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <form>
         <DialogTrigger asChild>
           <Button variant="outline" className="w-full">
           Guardar contraseña
@@ -104,7 +103,7 @@ useEffect(() => {
                       )}
                     />
 
-                    <div className="bg-gradient-to-r from-green-50 to-indigo-50 border border-gray-200 rounded-xl p-4">
+                    <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-gray-200 rounded-xl p-4">
                       <h3 className="text-sm font-semibold text-green-800 mb-3"> Configuración aplicada</h3>
                       <div className="space-y-4 text-sm">
                         <p>
@@ -126,7 +125,6 @@ useEffect(() => {
               Guardar contraseña</Button>
           </DialogFooter>
         </DialogContent>
-      </form>
     </Dialog>
   )
 }
