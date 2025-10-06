@@ -20,7 +20,7 @@ model Password {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  lenght Int @default(4)
+  length Int @default(4)
   hasUppercase Boolean @default(false)
   hasLowercase Boolean @default(false)
   hasNumbers Boolean @default(false)

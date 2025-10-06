@@ -10,6 +10,7 @@ import { ArrowUp01, CaseLower, CaseUpper, CopyIcon, Hash, ShieldCheck } from 'lu
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import FormSavePassword from './form_save_password'
 
 const options = [
     {
@@ -40,7 +41,7 @@ const FormCreatePassword = () => {
 
   const form = useForm<PasswordConfig>({
     defaultValues: {
-        lenght: 10,
+        length: 10,
         hasLowercase: true,
         hasNumbers: true,
         hasSymbols: true,
@@ -50,11 +51,11 @@ const FormCreatePassword = () => {
 
   useEffect(() => {
     const generated = generatePassword({
+        length: 10,
         hasLowercase: true,
         hasNumbers: true,
         hasSymbols: true,
-        hasUppercase: true,
-        lenght: 10
+        hasUppercase: true
     })
     setPassword(generated)
   }, [])
@@ -102,7 +103,7 @@ const FormCreatePassword = () => {
 
         <Card>
             <CardContent>
-                <h2 className="text-x1 font-semibold text-gray-800 mb-4">
+                <h2 className="text-center font-semibold text-gray-800 mb-4">
                     Configuración
                 </h2>
 
@@ -113,14 +114,14 @@ const FormCreatePassword = () => {
                     >
                         <FormField
                             control={form.control}
-                            name='lenght'
+                            name='length'
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel className='text-sm font-medium text-gray-700'>
                                         Longitud de la contraseña
                                     </FormLabel>
                                     <FormControl>
-                                        <Input {...field} type='number' className='text-center text-lg font-semibold h-12' min={4} max={48}>
+                                        <Input {...field} type='number' className='text-left font-semibold h-12 w-16' min={4} max={48}>
                                         </Input>
                                     </FormControl>
                                 </FormItem>
@@ -154,11 +155,13 @@ const FormCreatePassword = () => {
                             </div>
                         </div>
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4'>
-                            <Button type='submit'>
-                                <ShieldCheck />
+                            <Button type='submit' style={{backgroundColor: 'green'}}>
                                 Generar nueva contraseña
                             </Button>
-
+                            <FormSavePassword 
+                                password={password}
+                                passwordConfig={form.getValues()}
+                            />    
                         </div>
                     </form>
                 </Form>

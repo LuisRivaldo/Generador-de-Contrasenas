@@ -1,9 +1,10 @@
+
 export interface PasswordConfig {
     hasLowercase?: boolean
     hasUppercase?: boolean
     hasNumbers?: boolean
     hasSymbols?: boolean
-    lenght?: number
+    length?: number
 }
 
 export const generatePassword = ({
@@ -11,7 +12,7 @@ export const generatePassword = ({
     hasUppercase = false,
     hasSymbols = false,
     hasNumbers = false,
-    lenght = 8,
+    length = 8,
 }: PasswordConfig = {}) => {
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
@@ -29,7 +30,7 @@ export const generatePassword = ({
     }
 
     let password = "";
-    for(let i = 0; i < lenght; i++) {
+    for(let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * charPool.length);
         password += charPool[randomIndex];
     }

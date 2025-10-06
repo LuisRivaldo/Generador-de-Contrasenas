@@ -5,7 +5,7 @@ CREATE TABLE "Password" (
     "encryptedPassword" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    "lenght" INTEGER NOT NULL DEFAULT 4,
+    "length" INTEGER NOT NULL DEFAULT 4,
     "hasUppercase" BOOLEAN NOT NULL DEFAULT false,
     "hasLowercase" BOOLEAN NOT NULL DEFAULT false,
     "hasNumbers" BOOLEAN NOT NULL DEFAULT false,
