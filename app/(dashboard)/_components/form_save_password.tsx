@@ -21,13 +21,16 @@ import { passwordSchema, PasswordSchemaType } from "@/schema/password.schema"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { PasswordConfig } from "@/lib/password"
 import PasswordOptionsTags from "./password_options_tags"
+import { useMutation } from "@tanstack/react-query"
+import { CreatePasswordAction } from "../_actions/create_password.action"
+import { toast } from "sonner"
 
 interface Props {
   password: string
   passwordConfig: PasswordConfig
 }
 
-export function FormSavePassword({password, passwordConfig}: Props) {
+export function FormSavePassword({ password, passwordConfig}: Props) {
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -48,8 +51,24 @@ useEffect(() => {
   }
 }, [isOpen, password, passwordConfig, form])
 
+const {mutate, isPending} = useMutation({
+  mutationFn: CreatePasswordAction,
+  async onSuccess(data){
+    form.reset()
+
+    toast.success(`Password ${data.title} fue guardada con éxito`)
+
+    setIsOpen(false)
+
+    //TODO: revalidar la data
+  },
+  onError(error){
+    toast.error(`ERROR: ${error.message}`);
+  }
+})
+
   function onSubmit(values: PasswordSchemaType) {
-    console.log(values)
+    mutate(values)
   }
 
 
@@ -121,7 +140,7 @@ useEffect(() => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            <Button disabled={isPending} type="submit" onClick={form.handleSubmit(onSubmit)}>
               Guardar contraseña</Button>
           </DialogFooter>
         </DialogContent>
