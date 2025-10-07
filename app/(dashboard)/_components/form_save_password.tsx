@@ -21,7 +21,7 @@ import { passwordSchema, PasswordSchemaType } from "@/schema/password.schema"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { PasswordConfig } from "@/lib/password"
 import PasswordOptionsTags from "./password_options_tags"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { CreatePasswordAction } from "../_actions/create_password.action"
 import { toast } from "sonner"
 
@@ -34,11 +34,18 @@ export function FormSavePassword({ password, passwordConfig}: Props) {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const form = useForm<PasswordSchemaType>({
-    resolver: zodResolver(passwordSchema),
-    defaultValues: {
-    },
-  })
+const form = useForm<PasswordSchemaType>({
+  resolver: zodResolver(passwordSchema),
+  defaultValues: {
+    title: "", // 👈 importante
+    password: "",
+    length: 4,
+    hasLowercase: false,
+    hasUppercase: false,
+    hasNumbers: false,
+    hasSymbols: false,
+  },
+});
  
 useEffect(() => {
   if (isOpen) {
@@ -51,6 +58,8 @@ useEffect(() => {
   }
 }, [isOpen, password, passwordConfig, form])
 
+const queryClient = useQueryClient()
+
 const {mutate, isPending} = useMutation({
   mutationFn: CreatePasswordAction,
   async onSuccess(data){
@@ -60,7 +69,9 @@ const {mutate, isPending} = useMutation({
 
     setIsOpen(false)
 
-    //TODO: revalidar la data
+    queryClient.invalidateQueries({
+      queryKey: ["passwords"]
+    })
   },
   onError(error){
     toast.error(`ERROR: ${error.message}`);

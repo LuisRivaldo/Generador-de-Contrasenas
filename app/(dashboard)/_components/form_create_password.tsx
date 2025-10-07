@@ -121,8 +121,15 @@ const FormCreatePassword = () => {
                                         Longitud de la contraseña
                                     </FormLabel>
                                     <FormControl>
-                                        <Input {...field} type='number' className='text-left font-semibold h-12 w-16' min={4} max={48}>
-                                        </Input>
+                                        <Input
+                                        {...field}
+                                        type="number"
+                                        value={field.value ?? 10}
+                                        onChange={(e) => field.onChange(Number(e.target.value))}
+                                        className="text-left font-semibold h-12 w-16"
+                                        min={4}
+                                        max={48}
+                                        />
                                     </FormControl>
                                 </FormItem>
                             )} 
