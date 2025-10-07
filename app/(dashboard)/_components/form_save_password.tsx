@@ -149,7 +149,7 @@ const {mutate, isPending} = useMutation({
           </section>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">Cancelar</Button>
             </DialogClose>
             <Button disabled={isPending} type="submit" onClick={form.handleSubmit(onSubmit)}>
               Guardar contraseña</Button>

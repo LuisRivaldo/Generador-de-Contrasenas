@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { CopyIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import PasswordOptionsTags from './password_options_tags'
+import PasswordDeleteDialog from './password_delete_dialog'
 
 const PasswordLists = () => {
 
@@ -60,6 +61,7 @@ const PasswordLists = () => {
                                 <Button className='cursor-pointer' onClick={() => {handleCopyPassword(item.decryptedPassword)}}>
                                     <CopyIcon />
                                 </Button>
+                                <PasswordDeleteDialog id={item.id}/>
                             </section>
                         </CardContent>
                     </Card>
